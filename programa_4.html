@@ -1,0 +1,53 @@
+<!-- Creamos un canvas con un ancho de 600 y un alto de 400 píxeles -->
+<canvas width="600" height="400"> </canvas>
+
+<script>
+    // Seleccionamos el canvas y obtenemos su contexto 2D
+    var pantalla = document.querySelector("canvas");
+    var pincel = pantalla.getContext("2d");
+
+    // Establecemos el color de fondo del canvas
+    pincel.fillStyle = "lightgrey";
+    pincel.fillRect(0,0,600,400); 
+
+    // Definimos una función para dibujar una circunferencia dada una posición (x,y) y un radio
+    function disenharCircunferencia(x,y,radio){
+        pincel.fillStyle = "blue";
+        pincel.beginPath();
+        pincel.arc(x,y,radio,0,2*Math.PI);
+        pincel.fill();
+    }    
+
+    // Definimos una función para limpiar el canvas
+    function limpiarPantalla(){
+        pincel.clearRect(0,0,600,400);
+    }
+
+    // Inicializamos una variable 'x' en 0 y una variable 'sentido' en 1
+    var x = 0;
+    var sentido = 1;
+
+    // Definimos una función para actualizar la pantalla cada 100 milisegundos
+    function actualizarPantalla(){
+        // Limpiamos la pantalla
+        limpiarPantalla();
+
+        // Si la posición 'x' es mayor a 600, cambiamos el sentido a -1
+        if(x > 600){
+            sentido = -1;
+        // Si la posición 'x' es menor a 0, cambiamos el sentido a 1
+        }else if(x < 0){
+            sentido = 1;
+        }
+
+        // Dibujamos una circunferencia en la posición 'x' y una altura de 20 píxeles
+        disenharCircunferencia(x,20,10);
+
+        // Actualizamos la posición 'x' sumando o restando 1 (dependiendo del sentido actual)
+        x = x + sentido;
+    }
+
+    // Llamamos a la función actualizarPantalla cada 100 milisegundos
+    setInterval(actualizarPantalla,100);
+
+</script>
